@@ -1,9 +1,10 @@
 lcolors = c("red", "blue", "green", "orange", "yellow", "purple", "salmon")
-region = c("Spain", "Portugal")
 
+region = c("Spain", "Portugal")
+months = c("January", "February", "March", "April", "May", "June", "July","August","September","October", "November", "December")
 #con: connexion of database
 #up: if we want to take just 'up' first values. -1 for everything
-get_chunk <- function(con, up=-1, month_range=c())
+get_chunk <- function(con, up=-1, month_range=c(), year=-1)
 {
   extra_req <- ""
   
@@ -11,6 +12,12 @@ get_chunk <- function(con, up=-1, month_range=c())
   {
     extra_req = paste("AND month >=", month_range[1], "AND month <= ", month_range[2])
   }
+  
+  if(year != -1)
+  {
+    extra_req = paste(extra_req, "AND year =", year)
+  }
+  
   req <- paste("SELECT lac, month, lat, lng, signal_inst, fullCarrier, speed  FROM altran WHERE lac > 0",extra_req,"ORDER BY lac;")
   
   res <- dbSendQuery(con, req)
@@ -83,7 +90,7 @@ visu_f.carrier.sigstr <- function(chunk, carrier, remap=TRUE, offset=0, col)
     text(2.1833+0.1,41.3833, "Barcelona", pos=4)
   }
   
-  points(lng.points,lat.points, col="black", pch=16+offset, cex=0.7+sigstr.points)
+  points(lng.points,lat.points, col="black", pch=16+offset, cex=0.6+sigstr.points)
   points(lng.points,lat.points, col=lcolors[1 + ((col-1) %% length(lcolors))], pch=16+offset, cex=sigstr.points)
   points(2.1833, 41.3833, col="black", pch=16)  #Barcelona
   
