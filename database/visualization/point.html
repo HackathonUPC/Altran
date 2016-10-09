@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Creepy follower</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+
+// This example creates a 2-pixel-wide red polyline showing the path of William
+// Kingsford Smith's first trans-Pacific flight between Oakland, CA, and
+// Brisbane, Australia.
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+    center: {lat: 41.2, lng: 1.73},
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  });
+  
+  //for (i = 0; i < 10; i++) {
+  var coordinates = [
+    {lat: 41.224380, lng: 1.730530},
+    {lat: 41.224340, lng: 1.730890},
+    {lat: 41.224330, lng: 1.730740},
+    {lat: 41.224340, lng: 1.730740},
+    {lat: 41.224360, lng: 1.730760},
+    {lat: 41.224360, lng: 1.730750},
+    {lat: 41.224360, lng: 1.730750},
+    {lat: 41.224400, lng: 1.730880},
+    {lat: 41.224370, lng: 1.730850},
+    {lat: 41.224370, lng: 1.730850},
+    {lat: 41.224370, lng: 1.730850},
+    {lat: 41.224270, lng: 1.730810},
+    {lat: 41.224270, lng: 1.730810},
+    {lat: 41.224220, lng: 1.730790},
+    {lat: 41.224240, lng: 1.730760},
+    {lat: 41.224240, lng: 1.730760},
+    {lat: 41.224240, lng: 1.730760},
+    {lat: 41.224210, lng: 1.730990},
+    {lat: 41.224210, lng: 1.731050},
+    {lat: 41.224190, lng: 1.731090},
+    {lat: 41.224140, lng: 1.731170},
+    {lat: 41.224300, lng: 1.731020},
+    {lat: 41.224340, lng: 1.730990},
+    {lat: 41.224370, lng: 1.730860},
+    {lat: 41.224340, lng: 1.730760},
+    {lat: 41.224380, lng: 1.730700},
+    {lat: 41.224410, lng: 1.730720},
+    {lat: 41.224440, lng: 1.730640},
+    {lat: 41.224570, lng: 1.730540},
+    {lat: 41.224640, lng: 1.730580},
+    {lat: 41.224670, lng: 1.730610},
+    {lat: 41.224760, lng: 1.730540},
+    {lat: 41.224790, lng: 1.730410},
+    {lat: 41.224800, lng: 1.730280},
+    {lat: 41.224790, lng: 1.730170},
+    {lat: 41.224820, lng: 1.730020},
+    {lat: 41.224870, lng: 1.729890},
+    {lat: 41.224910, lng: 1.729800},
+    {lat: 41.224970, lng: 1.729700},
+    {lat: 41.224990, lng: 1.729630},
+    {lat: 41.224980, lng: 1.729570},
+    {lat: 41.225110, lng: 1.729530},
+    {lat: 41.225360, lng: 1.729530},
+    {lat: 41.225350, lng: 1.729460},
+    {lat: 41.225330, lng: 1.729360},
+    {lat: 41.225360, lng: 1.729280},
+    {lat: 41.225420, lng: 1.729240},
+    {lat: 41.225470, lng: 1.729200},
+    {lat: 41.225530, lng: 1.729160},
+    {lat: 41.225590, lng: 1.729090},
+    {lat: 41.225650, lng: 1.729050},
+    {lat: 41.225680, lng: 1.729010},
+    {lat: 41.225740, lng: 1.728970},
+    {lat: 41.225850, lng: 1.728930},
+    {lat: 41.225850, lng: 1.728820},
+    {lat: 41.225810, lng: 1.728670},
+    {lat: 41.225760, lng: 1.728550},
+    {lat: 41.225740, lng: 1.728430},
+    {lat: 41.225700, lng: 1.728340},
+    {lat: 41.225740, lng: 1.728240},
+    {lat: 41.225740, lng: 1.728240},
+    {lat: 41.225730, lng: 1.728100},
+    {lat: 41.225740, lng: 1.728060},
+    {lat: 41.225740, lng: 1.728050},
+    {lat: 41.225710, lng: 1.728050},
+    {lat: 41.225680, lng: 1.727970},
+    {lat: 41.225540, lng: 1.727740},
+    {lat: 41.225470, lng: 1.727670},
+    {lat: 41.225480, lng: 1.727450},
+    {lat: 41.225470, lng: 1.727330},
+    {lat: 41.225450, lng: 1.727280},
+    {lat: 41.225420, lng: 1.727190},
+    {lat: 41.225390, lng: 1.727120},
+    {lat: 41.225450, lng: 1.727100},
+    {lat: 41.225350, lng: 1.726920},
+    {lat: 41.225250, lng: 1.726790},
+    {lat: 41.225230, lng: 1.726760},
+    {lat: 41.225200, lng: 1.726640},
+    {lat: 41.225140, lng: 1.726540},
+    {lat: 41.225230, lng: 1.726450},
+    {lat: 41.225310, lng: 1.726390},
+    {lat: 41.225270, lng: 1.726380},
+    {lat: 41.225250, lng: 1.726400},
+    {lat: 41.225150, lng: 1.726400},
+    {lat: 41.224990, lng: 1.726490}
+  ];
+  
+  var index = 0;
+  var marker;
+  var loop = setInterval(function(){
+    index = index + 1
+    marker = new google.maps.Marker({
+      position: coordinates[index],
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 5
+      },
+      draggable: false,
+      map: map
+    });
+  }, 500);
+}
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuEHe5XwRunryixlBtzQYTt2sBwNduZRA&signed_in=true&callback=initMap"></script>
+  </body>
+</html>
+

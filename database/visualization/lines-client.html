@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <title>Se best eva</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="p1">Hello world</p>
+    <div id="map"></div>
+    <script>
+
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: {lat: 41.39, lng: 2.11},
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  });
+  
+  var id = 0
+  
+  var loop = setInterval(function(){  
+  
+    url = 'http://lappy:8000/' + id
+    jQuery.getJSON(url, function(data) {
+
+      var coordinates = []
+      
+      for (var i = 0; i < data.coordinates.length; i++) {
+        var lati = data.coordinates[i]['lat']
+        var lngi = data.coordinates[i]['lng']
+        var pos = {lat: lati, lng: lngi}
+        coordinates.push(pos)
+      }
+      
+      var flightPath = new google.maps.Polyline({
+        path: coordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 4
+      });
+      flightPath.setMap(map);
+      
+      id++
+      document.getElementById("p1").innerHTML = id;
+      
+    })
+  }, 200);  // end loop
+}
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuEHe5XwRunryixlBtzQYTt2sBwNduZRA&signed_in=true&callback=initMap"></script>
+  </body>
+</html>
+
